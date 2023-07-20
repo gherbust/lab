@@ -15,6 +15,7 @@ func NewDirectory() *Directory {
 
 func (d *Directory) SaveContact(contact domain.Contact) {
 	contact.Activation()
+
 	d.Storage[contact.Name] = contact
 }
 
@@ -26,4 +27,14 @@ func (d *Directory) GetContact(name string) *domain.Contact {
 
 	c := contact.(domain.Contact)
 	return &c
+}
+
+func (d *Directory) GetAll() *[]domain.Contact {
+	contacts := []domain.Contact{}
+
+	for _, v := range d.Storage {
+		contact := v.(domain.Contact)
+		contacts = append(contacts, contact)
+	}
+	return &contacts
 }
