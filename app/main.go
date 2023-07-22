@@ -12,7 +12,7 @@ func main() {
 	r := gin.Default()
 	r.POST("/directory", handler.Create)
 	r.GET("/directory/:name", handler.GetByName)
-	r.GET("/directory", handler.GetALL)
+	r.GET("/directory", handler.GetAll)
 
 	r.Run()
 

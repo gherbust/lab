@@ -25,9 +25,9 @@ func (d *DirectoryHandler) GetByName(c *gin.Context) {
 
 }
 
-func (d *DirectoryHandler) GetALL(c *gin.Context) {
-	contact := d.Directory.GetALL()
-	c.JSON(http.StatusOK, contact)
+func (d *DirectoryHandler) GetAll(c *gin.Context) {
+	contacts := d.Directory.GetAll()
+	c.JSON(http.StatusOK, contacts)
 
 }
 
