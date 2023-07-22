@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+
 	directory := applications.NewDirectory()
 	handler := infrastructure.NewDirectoryHandler(*directory)
 	r := gin.Default()
