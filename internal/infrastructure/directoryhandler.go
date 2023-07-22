@@ -25,6 +25,12 @@ func (d *DirectoryHandler) GetByName(c *gin.Context) {
 
 }
 
+func (d *DirectoryHandler) GetALL(c *gin.Context) {
+	contact := d.Directory.GetALL()
+	c.JSON(http.StatusOK, contact)
+
+}
+
 func (d *DirectoryHandler) Create(c *gin.Context) {
 	request := domain.Contact{}
 	c.Bind(&request)
