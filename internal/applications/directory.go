@@ -35,6 +35,13 @@ func (d *Directory) GetAll() *[]domain.Contact {
 	for _, v := range d.Storage {
 		contact := v.(domain.Contact)
 		contacts = append(contacts, contact)
+
+		/* guion bajo _ no toma el valor
+		Parseo: convertir un objeto a otro objeto con las mismas propiedades,
+		crea una estructura de un nuevo tipo*/
+
+		/* append agrega un dato a un arreglo*/
+
 	}
 	return &contacts
 }
