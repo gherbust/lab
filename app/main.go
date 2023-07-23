@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gherbust-meli/lab/internal/applications"
 	"github.com/gherbust-meli/lab/internal/infrastructure"
+	stringfuntionsinfraestructure "github.com/gherbust-meli/lab/internal/stringfuntions/infraestructure"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +15,8 @@ func main() {
 	r.POST("/directory", handler.Create)
 	r.GET("/directory/:name", handler.GetByName)
 	r.GET("/directory", handler.GetAll)
+
+	r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
 
 	r.Run()
 

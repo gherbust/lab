@@ -1,4 +1,4 @@
-package aplication
+package applications
 
 import (
 	"errors"
@@ -20,13 +20,14 @@ func Invert(text string) string {
 	count := len(t) - 1
 
 	for i := count; i > -1; i-- {
-		newText = newText + string(t[1])
+		newText = newText + string(t[i])
 	}
 	return newText
 }
 
-func Factory(action, text string) (string, error) {
+func StringConverter(action, text string) (string, error) {
 	result := ""
+	action = strings.ToLower(action)
 	switch {
 	case action == "lower":
 		result = toLowerCase(text)
