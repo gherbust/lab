@@ -24,8 +24,9 @@ func invert(text string) string {
 	return newText
 }
 
-func Factory(action, text string) (string, error) {
+func StringConverter(action, text string) (string, error) {
 	result := ""
+	action = strings.ToLower(action)
 	switch {
 	case action == "lower":
 		result = toLowerCase(text)

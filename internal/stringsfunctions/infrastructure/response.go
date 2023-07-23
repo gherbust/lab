@@ -1,6 +1,6 @@
 package infrastructure
 
-type Responce struct {
+type Response struct {
 	OriginalText string `json:"original_text"`
 	NewText      string `json:"new_text"`
 }
