@@ -15,12 +15,7 @@ func StringConverter(c *gin.Context) {
 		return
 	}
 
-	newText, err := applications.StringConverter(request.Action, request.Text)
-
-	if err != nil {
-		c.JSON(http.StatusBadRequest, "error al convertir el texto")
-		return
-	}
+	newText := applications.StringConverter(request.Action, request.Text)
 
 	response := Response{
 		OriginalText: request.Text,

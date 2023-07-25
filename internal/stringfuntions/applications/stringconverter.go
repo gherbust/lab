@@ -1,7 +1,6 @@
 package applications
 
 import (
-	"errors"
 	"strings"
 )
 
@@ -25,20 +24,26 @@ func Invert(text string) string {
 	return newText
 }
 
-func StringConverter(action, text string) (string, error) {
-	result := ""
-	action = strings.ToLower(action)
-	switch {
-	case action == "lower":
-		result = toLowerCase(text)
-	case action == "upper":
-		result = toUpperCase(text)
-	case action == "invert":
-		result = Invert(text)
+func StringConverter(actions []string, text string) []string {
+	results := []string{}
+
+	for _, action := range actions {
+		result := ""
+		action = strings.ToLower(action)
+		switch {
+		case action == "lower":
+			result = toLowerCase(text)
+		case action == "upper":
+			result = toUpperCase(text)
+		case action == "invert":
+			result = Invert(text)
+		}
+		if result == "" {
+			result = "error al procesar texto"
+		}
+
+		results = append(results, result)
 	}
 
-	if result == "" {
-		return "", errors.New("Error al procesar el texto")
-	}
-	return result, nil
+	return results
 }
