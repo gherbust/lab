@@ -41,7 +41,6 @@ func StringConverter(actions []string, text string) []string {
 		if result == "" {
 			result = "error al procesar texto"
 		}
-
 		results = append(results, result)
 	}
 
