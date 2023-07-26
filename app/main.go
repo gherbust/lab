@@ -1,13 +1,15 @@
 package main
 
 import (
-	"github.com/gherbust-meli/lab/internal/applications"
-	"github.com/gherbust-meli/lab/internal/infrastructure"
-	"github.com/gin-gonic/gin"
+	"github.com/gherbust-meli/lab/internal/shared"
 )
 
 func main() {
-	directory := applications.NewDirectory()
+
+	//shared.Multiplicacion(898)
+	lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
+	shared.ObtenerLimites(lista)
+	/*directory := applications.NewDirectory()
 	handler := infrastructure.NewDirectoryHandler(*directory)
 	r := gin.Default()
 	r.POST("/directory", handler.Create)
@@ -15,7 +17,7 @@ func main() {
 	r.GET("/directory", handler.GetAll)
 
 	r.Run()
-
+	*/
 	/*c := domain.Contact{
 		Name:        "Dul",
 		PhoneNumber: "5587654321",
