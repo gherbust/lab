@@ -28,6 +28,8 @@ func main() {
 	r.GET("/directory/:name", handler.GetByName)
 	r.GET("/directory", handler.GetAll)
 
+	r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
+
 	r.Run()
 	*/
 	/*c := domain.Contact{
