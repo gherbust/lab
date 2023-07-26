@@ -13,7 +13,7 @@ func toUpperCase(text string) string {
 	return strings.ToUpper(text)
 }
 
-func invert(text string) string {
+func Invert(text string) string {
 	t := []byte(text)
 	newText := ""
 	count := len(t) - 1
@@ -33,7 +33,7 @@ func StringConverter(action, text string) (string, error) {
 	case action == "upper":
 		result = toUpperCase(text)
 	case action == "invert":
-		result = invert(text)
+		result = Invert(text)
 	}
 
 	if result == "" {

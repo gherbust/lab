@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+
+	"github.com/gherbust-meli/lab/internal/shared"
+)
+
 func main() {
 	// shared.Multiplicacion(889)
 
@@ -7,5 +13,15 @@ func main() {
 	// shared.ObtenerLimites(lista)
 	// contraseña := shared.CrearContraseña(8)
 	// fmt.Println(contraseña)
+
+	// if shared.EsPalindromo(" amor a Roma ") {
+	// 	fmt.Println("Es palindromo")
+	// } else {
+	// 	fmt.Println("No es palindromo")
+	// }
+
+	s := shared.CerdoLatinoPalabra("hello")
+
+	fmt.Println(s)
 
 }
