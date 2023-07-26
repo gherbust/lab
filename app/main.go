@@ -1,14 +1,26 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/gherbust-meli/lab/internal/shared"
 )
 
 func main() {
 
+	contraseña := shared.CrearContraseña(12)
+	fmt.Println(contraseña)
+
+	v := "sakdfjsdgnlkjkmkmmvf"
+
+	for i, v := range v {
+		fmt.Println(i)
+		fmt.Println(v)
+	}
+
 	//shared.Multiplicacion(898)
-	lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
-	shared.ObtenerLimites(lista)
+	//lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
+	//shared.ObtenerLimites(lista)
 	/*directory := applications.NewDirectory()
 	handler := infrastructure.NewDirectoryHandler(*directory)
 	r := gin.Default()
