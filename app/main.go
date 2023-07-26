@@ -8,15 +8,27 @@ import (
 
 func main() {
 
-	contraseña := shared.CrearContraseña(12)
-	fmt.Println(contraseña)
+	s := shared.CerdoLatinoPalabra("Hello")
+	fmt.Println(s)
 
-	v := "sakdfjsdgnlkjkmkmmvf"
+	/*
+		if shared.EsPalindromo("AmofRoma") {
+			fmt.Println("Es palindromo")
+		} else {
+			fmt.Println("No es palindromo")
+		}
+	*/
+	/*
+		contraseña := shared.CrearContraseña(12)
+		fmt.Println(contraseña)
 
-	for i, v := range v {
-		fmt.Println(i)
-		fmt.Println(v)
-	}
+		v := "sakdfjsdgnlkjkmkmmvf"
+
+		for i, v := range v {
+			fmt.Println(i)
+			fmt.Println(v)
+		}
+	*/
 
 	//shared.Multiplicacion(898)
 	//lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
