@@ -8,9 +8,24 @@ import (
 
 func main() {
 
-	s := shared.CerdoLatinoPalabra("Hello")
-	fmt.Println(s)
+	nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Bbeshito", "HijoPanzon"}
+	shared.OrdenarNombres(&nombres)
 
+	for _, v := range nombres {
+		fmt.Println(v)
+	}
+	/*
+
+		shared.NumerosB(10)
+	*/
+	/*
+		s := shared.CerdoLatinoFrase("Hola mundo jeje patata")
+		fmt.Println(s)
+	*/
+	/*
+		s := shared.CerdoLatinoPalabra("Hello")
+		fmt.Println(s)
+	*/
 	/*
 		if shared.EsPalindromo("AmofRoma") {
 			fmt.Println("Es palindromo")
@@ -29,34 +44,35 @@ func main() {
 			fmt.Println(v)
 		}
 	*/
+	/*
+		//shared.Multiplicacion(898)
+		//lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
+		//shared.ObtenerLimites(lista)
+		/*directory := applications.NewDirectory()
+		handler := infrastructure.NewDirectoryHandler(*directory)
+		r := gin.Default()
+		r.POST("/directory", handler.Create)
+		r.GET("/directory/:name", handler.GetByName)
+		r.GET("/directory", handler.GetAll)
 
-	//shared.Multiplicacion(898)
-	//lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
-	//shared.ObtenerLimites(lista)
-	/*directory := applications.NewDirectory()
-	handler := infrastructure.NewDirectoryHandler(*directory)
-	r := gin.Default()
-	r.POST("/directory", handler.Create)
-	r.GET("/directory/:name", handler.GetByName)
-	r.GET("/directory", handler.GetAll)
+		r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
 
-	r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
-
-	r.Run()
+		r.Run()
 	*/
-	/*c := domain.Contact{
-		Name:        "Dul",
-		PhoneNumber: "5587654321",
-		EMail:       "dul@correo.com",
-	}
 
-	directory := applications.NewDirectory()
+	/*	c := domain.Contact{
+			Name:        "Dul",
+			PhoneNumber: "5587654321",
+			EMail:       "dul@correo.com",
+		}
 
-	directory.SaveContact(c)
+		directory := applications.NewDirectory()
 
-	contact := directory.GetContact("Dul")
+		directory.SaveContact(c)
 
-	fmt.Println(contact.EMail)
+		contact := directory.GetContact("Dul")
+
+		fmt.Println(contact.EMail)
 	*/
 
 	/*	var edad int
@@ -65,7 +81,7 @@ func main() {
 		edad, err := calculaEdad(año)
 
 		if err != nil {
-			fmt.Println(err.Error())
+			fmt.Println(err.Error())NumerosB(numeros int)OrdenarNombres(nombres *[]string)
 			panic(err.Error())
 		}
 
