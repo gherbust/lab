@@ -16,5 +16,12 @@ func CerdoLatinoPalabra(texto string) string {
 }
 
 func CerdoLatinoFrace(texto string) string {
-	return ""
+	palabras := strings.Split(texto, " ")
+	var nuevoTexto strings.Builder
+	for _, v := range palabras {
+		nuevoTexto.WriteString(CerdoLatinoPalabra(v))
+		nuevoTexto.WriteString(" ")
+	}
+
+	return nuevoTexto.String()
 }

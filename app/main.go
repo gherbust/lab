@@ -20,8 +20,15 @@ func main() {
 	// 	fmt.Println("No es palindromo")
 	// }
 
-	s := shared.CerdoLatinoPalabra("hello")
+	// s := shared.CerdoLatinoFrace(" the big grean apple")
+	// fmt.Println(s)
 
-	fmt.Println(s)
+	// shared.Bucle()
+	nombres := []string{"Jose", "Ricardo", "Pablo", "Andres", "Juan", "Daniel", "Bernardo", "Claudia"}
 
+	shared.OrdenarNombres(&nombres)
+
+	for _, v := range nombres {
+		fmt.Println(v)
+	}
 }
