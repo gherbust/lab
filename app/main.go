@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/gherbust-meli/lab/internal/directory/applications"
-	"github.com/gherbust-meli/lab/internal/directory/infrastructure"
+	"github.com/gherbust/lab/internal/directory/applications"
+	"github.com/gherbust/lab/internal/directory/infrastructure"
+	stringfuntionsinfraestructure "github.com/gherbust/lab/internal/stringfuntions/infraestructure"
 	"github.com/gin-gonic/gin"
 )
 
@@ -50,8 +51,8 @@ func main() {
 		//lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
 		//shared.ObtenerLimites(lista)
 	*/
-	directory := applications.NewDirectory()
-	handler := infrastructure.NewDirectoryHandler(*directory)
+	directory := applications.NewDirectoryMYSQL()
+	handler := infrastructure.NewDirectoryHandler(directory)
 	r := gin.Default()
 	r.POST("/directory", handler.Create)
 	r.GET("/directory/:name", handler.GetByName)
