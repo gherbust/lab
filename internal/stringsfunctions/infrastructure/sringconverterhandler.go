@@ -3,7 +3,7 @@ package infrastructure
 import (
 	"net/http"
 
-	"github.com/gherbust-meli/lab/internal/stringsfunctions/applications"
+	"github.com/gherbust/lab/internal/stringsfunctions/applications"
 	"github.com/gin-gonic/gin"
 )
 

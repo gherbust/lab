@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/gherbust-meli/lab/internal/shared"
+	"github.com/gherbust/lab/internal/shared"
 )
 
 func main() {
@@ -28,7 +26,7 @@ func main() {
 
 	shared.OrdenarNombres(&nombres)
 
-	for _, v := range nombres {
-		fmt.Println(v)
-	}
+	// for _, v := range nombres {
+	// 	fmt.Println(v)
+	// }
 }
