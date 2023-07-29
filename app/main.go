@@ -1,19 +1,20 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/gherbust/lab/internal/shared"
+	"github.com/gherbust-meli/lab/internal/directory/applications"
+	"github.com/gherbust-meli/lab/internal/directory/infrastructure"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	/*
+		nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Beshito", "HijoPanzon"}
+		shared.OrdenarNombres(&nombres)
 
-	nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Beshito", "HijoPanzon"}
-	shared.OrdenarNombres(&nombres)
-
-	for _, v := range nombres {
-		fmt.Println(v)
-	}
+		for _, v := range nombres {
+			fmt.Println(v)
+		}
+	*/
 	/*
 
 		shared.NumerosB(10)
@@ -48,17 +49,17 @@ func main() {
 		//shared.Multiplicacion(898)
 		//lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
 		//shared.ObtenerLimites(lista)
-		/*directory := applications.NewDirectory()
-		handler := infrastructure.NewDirectoryHandler(*directory)
-		r := gin.Default()
-		r.POST("/directory", handler.Create)
-		r.GET("/directory/:name", handler.GetByName)
-		r.GET("/directory", handler.GetAll)
-
-		r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
-
-		r.Run()
 	*/
+	directory := applications.NewDirectory()
+	handler := infrastructure.NewDirectoryHandler(*directory)
+	r := gin.Default()
+	r.POST("/directory", handler.Create)
+	r.GET("/directory/:name", handler.GetByName)
+	r.GET("/directory", handler.GetAll)
+
+	r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
+
+	r.Run()
 
 	/*	c := domain.Contact{
 			Name:        "Dul",
