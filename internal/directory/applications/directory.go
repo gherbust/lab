@@ -1,6 +1,6 @@
 package applications
 
-import "github.com/gherbust-meli/lab/internal/domain"
+import "github.com/gherbust/lab/internal/directory/domain"
 
 type Directory struct {
 	Storage map[string]interface{}

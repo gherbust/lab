@@ -3,8 +3,8 @@ package infrastructure
 import (
 	"net/http"
 
-	"github.com/gherbust-meli/lab/internal/applications"
-	"github.com/gherbust-meli/lab/internal/domain"
+	"github.com/gherbust/lab/internal/directory/applications"
+	"github.com/gherbust/lab/internal/directory/domain"
 	"github.com/gin-gonic/gin"
 )
 

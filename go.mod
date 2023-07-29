@@ -1,4 +1,4 @@
-module github.com/gherbust-meli/lab
+module github.com/gherbust/lab
 
 go 1.20
 

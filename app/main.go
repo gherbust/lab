@@ -3,12 +3,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/gherbust-meli/lab/internal/shared"
+	"github.com/gherbust/lab/internal/shared"
 )
 
 func main() {
 
-	nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Bbeshito", "HijoPanzon"}
+	nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Beshito", "HijoPanzon"}
 	shared.OrdenarNombres(&nombres)
 
 	for _, v := range nombres {

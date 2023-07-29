@@ -3,7 +3,7 @@ package shared
 import (
 	"strings"
 
-	"github.com/gherbust-meli/lab/internal/stringfuntions/applications"
+	"github.com/gherbust/lab/internal/stringfuntions/applications"
 )
 
 func EsPalindromo(texto string) bool {
