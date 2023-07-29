@@ -2,24 +2,24 @@ package applications
 
 import "github.com/gherbust/lab/internal/directory/domain"
 
-type Directory struct {
+type DirectoryMYSQL struct {
 	Storage map[string]interface{}
 }
 
-func NewDirectory() DirectoryRepository {
+func NewDirectoryMYSQL() DirectoryRepository {
 	storage := make(map[string]interface{}, 0)
-	return &Directory{
+	return &DirectoryMYSQL{
 		Storage: storage,
 	}
 }
 
-func (d *Directory) SaveContact(contact domain.Contact) {
+func (d *DirectoryMYSQL) SaveContact(contact domain.Contact) {
 	contact.Activation()
 
 	d.Storage[contact.Name] = contact
 }
 
-func (d *Directory) GetContact(name string) *domain.Contact {
+func (d *DirectoryMYSQL) GetContact(name string) *domain.Contact {
 	contact := d.Storage[name]
 	if contact == nil {
 		return nil
@@ -29,7 +29,7 @@ func (d *Directory) GetContact(name string) *domain.Contact {
 	return &c
 }
 
-func (d *Directory) GetAll() *[]domain.Contact {
+func (d *DirectoryMYSQL) GetAll() *[]domain.Contact {
 	contacts := []domain.Contact{}
 
 	for _, v := range d.Storage {
@@ -46,7 +46,7 @@ func (d *Directory) GetAll() *[]domain.Contact {
 	return &contacts
 }
 
-func (d *Directory) GetAllEnabled() *[]domain.Contact {
+func (d *DirectoryMYSQL) GetAllEnabled() *[]domain.Contact {
 	contacts := []domain.Contact{}
 
 	for _, v := range d.Storage {

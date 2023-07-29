@@ -9,10 +9,10 @@ import (
 )
 
 type DirectoryHandler struct {
-	Directory applications.Directory
+	Directory applications.DirectoryRepository
 }
 
-func NewDirectoryHandler(directory applications.Directory) *DirectoryHandler {
+func NewDirectoryHandler(directory applications.DirectoryRepository) *DirectoryHandler {
 	return &DirectoryHandler{
 		Directory: directory,
 	}
