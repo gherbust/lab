@@ -1,15 +1,41 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/gherbust/lab/internal/directory/applications"
+	"github.com/gherbust/lab/internal/directory/domain"
 	"github.com/gherbust/lab/internal/directory/infrastructure"
-	"github.com/gherbust/lab/internal/shared"
 	stringsfunctionsinfrastructure "github.com/gherbust/lab/internal/stringsfunctions/infrastructure"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+
+	db, err := sql.Open("mysql", "root:Subreg03@tcp(localhost:3306)/directorio")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	defer db.Close()
+
+	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)"
+
+	inserted, err := db.Query(query, "Dulce1", "5587654324", "dul1@correo.com", 1, "2023-07-30 00:22:00")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	var contacto domain.Contact
+	err = inserted.Scan(contacto)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
 	directory := applications.NewDirectoryMYSQL()
 	handler := infrastructure.NewDirectoryHandler(directory)
 	r := gin.Default()
@@ -38,9 +64,9 @@ func main() {
 	// fmt.Println(s)
 
 	// shared.Bucle()
-	nombres := []string{"Jose", "Ricardo", "Pablo", "Andres", "Juan", "Daniel", "Bernardo", "Claudia"}
+	// nombres := []string{"Jose", "Ricardo", "Pablo", "Andres", "Juan", "Daniel", "Bernardo", "Claudia"}
 
-	shared.OrdenarNombres(&nombres)
+	// shared.OrdenarNombres(&nombres)
 
 	// for _, v := range nombres {
 	// 	fmt.Println(v)
