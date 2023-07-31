@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/gherbust/lab/platform/mysql/domain"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -20,7 +21,7 @@ func main() {
 
 	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)"
 
-	result, err := db.Exec(query, "Dulce1", "5587654310", "dul1@correo.com", 1, "2023-07-30 00:22:00")
+	result, err := db.Exec(query, "Dulce1", "5587654314", "dul1@correo.com", 1, "2023-07-30 00:22:00")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -30,6 +31,25 @@ func main() {
 		fmt.Println(err.Error())
 	}
 	fmt.Println(id)
+
+	query = "SELECT idcontacto,name,phone_number,e_mail,enabled FROM directorio.contacto"
+
+	rows, err := db.Query(query)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	contactos := []domain.Contact{}
+	for rows.Next() {
+		contacto := new(domain.Contact)
+		err = rows.Scan(&contacto.Id, &contacto.Name, &contacto.PhoneNumber, &contacto.EMail, &contacto.Enabled)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		contactos = append(contactos, *contacto)
+	}
+
+	fmt.Println(len(contactos))
+
 	/*
 		directory := applications.NewDirectoryMYSQL()
 		handler := infrastructure.NewDirectoryHandler(directory)
