@@ -1,5 +1,7 @@
 package domain
 
+//cambie el nombre de contac.go a contacto.go 31-Julio-2023 4:23pm
+
 type Contact struct {
 	Name        string `json:"name"`
 	PhoneNumber string `json:"phone_number"`

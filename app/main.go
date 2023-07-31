@@ -8,6 +8,7 @@ import (
 
 	"github.com/gherbust/lab/internal/directory/applications"
 	"github.com/gherbust/lab/internal/directory/infrastructure"
+	"github.com/gherbust/lab/internal/platform/mysql/domain"
 	stringfuntionsinfraestructure "github.com/gherbust/lab/internal/stringfuntions/infraestructure"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +26,7 @@ func main() {
 
 	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)"
 
-	result, err := db.Exec(query, "Dulce", "1577503752", "dulce@correo.com", 1, "2023-07-31 15:49:00")
+	result, err := db.Exec(query, "Dulce5", "8383455387522", "dulce5@correo.com", 1, "2023-07-31 17:14:00")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -36,8 +37,23 @@ func main() {
 	}
 	fmt.Println(id)
 
+	query = "SELECT idcontacto,name,phone_number,e_mail,enabled FROM directorio.contacto"
+
+	rows, err := db.Query(query)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	contactos := []domain.Contact{} //se ponen llavesitas para instanciar el objeto "{}"
+	for rows.Next() {
+		contacto := new(domain.Contact)
+		rows.Scan(&contacto.Id, &contacto.Name, &contacto.PhoneNumber, &contacto.EMail, &contacto.Enabled)
+		contactos = append(contactos, *contacto)
+	}
+
+	fmt.Println(len(contactos))
+
 	/*
-		nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Beshito", "HijoPanzon"}
+		nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Bebeshito", "HijoPanzon"}
 		shared.OrdenarNombres(&nombres)
 
 		for _, v := range nombres {
