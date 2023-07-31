@@ -5,17 +5,13 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
-
-	"github.com/gherbust/lab/internal/directory/applications"
-	"github.com/gherbust/lab/internal/directory/infrastructure"
-	stringsfunctionsinfrastructure "github.com/gherbust/lab/internal/stringsfunctions/infrastructure"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
 
 	db, err := sql.Open("mysql", "root:Subreg03@tcp(localhost:3306)/directorio")
+	//aqui hay datos que vemos en la configuracion de la base de datos "edit conection"
+
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -24,7 +20,7 @@ func main() {
 
 	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)"
 
-	result, err := db.Exec(query, "Dulce2", "5587654310", "dul2@correo.com", 1, "2023-07-30 00:22:00")
+	result, err := db.Exec(query, "Dulce1", "5587654310", "dul1@correo.com", 1, "2023-07-30 00:22:00")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -34,17 +30,18 @@ func main() {
 		fmt.Println(err.Error())
 	}
 	fmt.Println(id)
+	/*
+		directory := applications.NewDirectoryMYSQL()
+		handler := infrastructure.NewDirectoryHandler(directory)
+		r := gin.Default()
+		r.POST("/directory", handler.Create)
+		r.GET("/directory/:name", handler.GetByName)
+		r.GET("/directory", handler.GetAll)
 
-	directory := applications.NewDirectoryMYSQL()
-	handler := infrastructure.NewDirectoryHandler(directory)
-	r := gin.Default()
-	r.POST("/directory", handler.Create)
-	r.GET("/directory/:name", handler.GetByName)
-	r.GET("/directory", handler.GetAll)
+		r.POST("/stringConverter", stringsfunctionsinfrastructure.StringConverter)
 
-	r.POST("/stringConverter", stringsfunctionsinfrastructure.StringConverter)
-
-	r.Run()
+		r.Run()
+	*/
 
 	// shared.Multiplicacion(889)
 
