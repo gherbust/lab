@@ -7,7 +7,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/gherbust/lab/internal/directory/applications"
-	"github.com/gherbust/lab/internal/directory/domain"
 	"github.com/gherbust/lab/internal/directory/infrastructure"
 	stringsfunctionsinfrastructure "github.com/gherbust/lab/internal/stringsfunctions/infrastructure"
 
@@ -25,16 +24,16 @@ func main() {
 
 	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)"
 
-	inserted, err := db.Query(query, "Dulce1", "5587654324", "dul1@correo.com", 1, "2023-07-30 00:22:00")
+	result, err := db.Exec(query, "Dulce2", "5587654310", "dul2@correo.com", 1, "2023-07-30 00:22:00")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	var contacto domain.Contact
-	err = inserted.Scan(contacto)
+	id, err := result.LastInsertId()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+	fmt.Println(id)
 
 	directory := applications.NewDirectoryMYSQL()
 	handler := infrastructure.NewDirectoryHandler(directory)
