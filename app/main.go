@@ -7,7 +7,6 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/gherbust/lab/internal/directory/applications"
-	"github.com/gherbust/lab/internal/directory/domain"
 	"github.com/gherbust/lab/internal/directory/infrastructure"
 	stringfuntionsinfraestructure "github.com/gherbust/lab/internal/stringfuntions/infraestructure"
 
@@ -24,15 +23,18 @@ func main() {
 
 	defer db.Close()
 
-	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`email`,`enabled`, `last_update`) values(?,?,?,?,?)"
+	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)"
 
-	inserted, err := db.Query(query, "Dulce5", "15838484093", "dulce5@correo.com", 1, "2023-07-30 00:23:00")
+	result, err := db.Exec(query, "Dulce", "1577503752", "dulce@correo.com", 1, "2023-07-31 15:49:00")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
-	var contacto domain.Contact
-	err = inserted.Scan(contacto)
+	id, err := result.LastInsertId()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	fmt.Println(id)
 
 	/*
 		nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Beshito", "HijoPanzon"}
