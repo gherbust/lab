@@ -21,7 +21,7 @@ func main() {
 
 	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)"
 
-	result, err := db.Exec(query, "Dulce1", "5587654314", "dul1@correo.com", 1, "2023-07-30 00:22:00")
+	result, err := db.Exec(query, "Dulce3", "5587654377", "dulce3@correo.com", 1, "2023-07-30 00:22:00")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -32,9 +32,9 @@ func main() {
 	}
 	fmt.Println(id)
 
-	query = "SELECT idcontacto,name,phone_number,e_mail,enabled FROM directorio.contacto"
+	query = "SELECT idcontacto,name,phone_number,e_mail,enabled FROM directorio.contacto where name = ?"
 
-	rows, err := db.Query(query)
+	rows, err := db.Query(query, "Dulce1")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -49,6 +49,27 @@ func main() {
 	}
 
 	fmt.Println(len(contactos))
+
+	query = "UPDATE `directorio`.`contacto` SET `enabled` = 0, `last_update` = now() WHERE `idcontacto` = ?;"
+
+	result, err = db.Exec(query, id)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	if total, err := result.RowsAffected(); total > 0 && err == nil {
+		fmt.Printf("total afectados %v", total)
+	}
+
+	query = "delete from `contacto` where name = ?"
+	result, err = db.Exec(query, "Gerardo")
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	if total, err := result.RowsAffected(); total > 0 && err == nil {
+		fmt.Printf("total eliminados %v", total)
+	}
 
 	/*
 		directory := applications.NewDirectoryMYSQL()
