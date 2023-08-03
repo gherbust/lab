@@ -1,79 +1,32 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/gherbust/lab/internal/directory/applications"
 	"github.com/gherbust/lab/internal/directory/infrastructure"
-	"github.com/gherbust/lab/internal/platform/mysql/domain"
-	stringfuntionsinfraestructure "github.com/gherbust/lab/internal/stringfuntions/infraestructure"
+	mysqlinfraestructure "github.com/gherbust/lab/internal/platform/mysql/infraestructure"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-
-	db, err := sql.Open("mysql", "root:bebes2023*@tcp(localhost:3306)/directorio") //aqui hay datos que vemos en la configuracion de la base de datos "edit conection"
-
+	conectionString := "root:bebes2023*@tcp(localhost:3306)/directorio"
+	sqlDB, err := mysqlinfraestructure.OpenMysqlDB(conectionString)
 	if err != nil {
-		fmt.Println(err.Error())
+		panic(err)
 	}
 
-	defer db.Close()
+	directory := applications.NewDirectoryMYSQL(sqlDB)
+	handler := infrastructure.NewDirectoryHandler(directory)
+	r := gin.Default()                   //esto levanta el servidor web en GO
+	r.POST("/directory", handler.Create) ///VERBOS en Postman
+	r.GET("/directory/:name", handler.GetByName)
+	r.GET("/directory", handler.GetAll)
 
-	query := "INSERT INTO `directorio`.`contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,?)" //esta es la cadena de conexión :)
-	//es importante usar esto para evitar un SQLinyection (es mas seguro)
+	//r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
 
-	result, err := db.Exec(query, "Mismihijazo3", "8900385503'", "hijazo3@correo.com", 1, "2023-08-01 21:10:00")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	id, err := result.LastInsertId()
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	fmt.Println(id)
-
-	query = "SELECT idcontacto,name,phone_number,e_mail,enabled FROM directorio.contacto where name = ?"
-
-	rows, err := db.Query(query, "Mismihijazo") //"Dulce"
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	contactos := []domain.Contact{} //se ponen llavesitas para instanciar el objeto "{}"
-	for rows.Next() {
-		contacto := new(domain.Contact)
-		rows.Scan(&contacto.Id, &contacto.Name, &contacto.PhoneNumber, &contacto.EMail, &contacto.Enabled)
-		contactos = append(contactos, *contacto)
-	}
-
-	fmt.Println(len(contactos))
-
-	query = "UPDATE `directorio`.`contacto` SET `enabled` = 0, `last_update` = now() WHERE `idcontacto` = ?;"
-
-	result, err = db.Exec(query, id)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	if total, err := result.RowsAffected(); total > 0 && err == nil {
-		fmt.Printf("total afectados %v", total)
-	}
-
-	query = "DELETE FROM `directorio`.`contacto` WHERE name = ?"
-	result, err = db.Exec(query, "Dulce")
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-
-	if total, err := result.RowsAffected(); total > 0 && err == nil {
-		fmt.Printf("total eliminados %v", total)
-	}
-
+	r.Run()
 	/*
 		nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Bebeshito", "HijoPanzon"}
 		shared.OrdenarNombres(&nombres)
@@ -117,16 +70,6 @@ func main() {
 		//lista := []int{3, 4, 56, 45, 23, 89, 97, 527}
 		//shared.ObtenerLimites(lista)
 	*/
-	directory := applications.NewDirectoryMYSQL()
-	handler := infrastructure.NewDirectoryHandler(directory)
-	r := gin.Default()
-	r.POST("/directory", handler.Create)
-	r.GET("/directory/:name", handler.GetByName)
-	r.GET("/directory", handler.GetAll)
-
-	r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
-
-	r.Run()
 
 	/*	c := domain.Contact{
 			Name:        "Dul",

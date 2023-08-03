@@ -1,13 +1,18 @@
 package applications
 
-import "github.com/gherbust/lab/internal/directory/domain"
+import (
+	"database/sql"
+	"fmt"
+
+	"github.com/gherbust/lab/internal/directory/domain"
+	domainDB "github.com/gherbust/lab/internal/platform/mysql/domain"
+)
 
 type DirectoryMYSQL struct {
-	Storage map[string]interface{}
+	Storage *sql.DB
 }
 
-func NewDirectoryMYSQL() DirectoryRepository {
-	storage := make(map[string]interface{}, 0)
+func NewDirectoryMYSQL(storage *sql.DB) DirectoryRepository {
 	return &DirectoryMYSQL{
 		Storage: storage,
 	}
@@ -16,49 +21,120 @@ func NewDirectoryMYSQL() DirectoryRepository {
 func (d *DirectoryMYSQL) SaveContact(contact domain.Contact) {
 	contact.Activation()
 
-	d.Storage[contact.Name] = contact
+	query := "INSERT INTO `contacto`(`name`,`phone_number`,`e_mail`,`enabled`,`last_update`) values(?,?,?,?,now())" //esta es la cadena de conexión :), es importante usar esto para evitar un SQLinyection (es mas seguro)
+
+	result, err := d.Storage.Exec(query, contact.Name, contact.PhoneNumber, contact.EMail, contact.Status())
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	_, err = result.LastInsertId()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
 
 func (d *DirectoryMYSQL) GetContact(name string) *domain.Contact {
-	contact := d.Storage[name]
-	if contact == nil {
-		return nil
-	}
+	cnt := domain.Contact{}
 
-	c := contact.(domain.Contact)
-	return &c
+	query := "SELECT idcontacto,name,phone_number,e_mail,enabled FROM directorio.contacto where name = ?"
+
+	rows, err := d.Storage.Query(query, name)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	contactos := []domainDB.Contact{} //se ponen llavesitas para instanciar el objeto "{}"
+	for rows.Next() {
+		contacto := new(domainDB.Contact)
+		err = rows.Scan(&contacto.Id, &contacto.Name, &contacto.PhoneNumber, &contacto.EMail, &contacto.Enabled)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		contactos = append(contactos, *contacto)
+	}
+	if len(contactos) > 0 {
+		contacto := contactos[0]
+		cnt.Name = contacto.Name
+		cnt.EMail = contacto.EMail
+		cnt.PhoneNumber = contacto.PhoneNumber
+		if contacto.Enabled {
+			cnt.Activation()
+		} else {
+			cnt.Deactivation()
+		}
+	}
+	return &cnt //un tipo nuevo, a un tipo diferente == MARSHALL
 }
 
 func (d *DirectoryMYSQL) GetAll() *[]domain.Contact {
-	contacts := []domain.Contact{}
+	query := "SELECT idcontacto,name,phone_number,e_mail,enabled FROM contacto"
 
-	for _, v := range d.Storage {
-		contact := v.(domain.Contact)
-		contacts = append(contacts, contact)
-
-		/* guion bajo _ no toma el valor
-		Parseo: convertir un objeto a otro objeto con las mismas propiedades,
-		crea una estructura de un nuevo tipo*/
-
-		/* append agrega un dato a un arreglo*/
-
+	rows, err := d.Storage.Query(query)
+	if err != nil {
+		fmt.Println(err.Error())
 	}
-	return &contacts
+	contactos := []domainDB.Contact{} //se ponen llavesitas para instanciar el objeto "{}"
+	for rows.Next() {
+		contacto := new(domainDB.Contact)
+		err = rows.Scan(&contacto.Id, &contacto.Name, &contacto.PhoneNumber, &contacto.EMail, &contacto.Enabled)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		contactos = append(contactos, *contacto)
+	}
+
+	cnts := []domain.Contact{}
+	if len(contactos) > 0 {
+		for _, contacto := range contactos {
+			cnt := domain.Contact{}
+
+			cnt.Name = contacto.Name
+			cnt.EMail = contacto.EMail
+			cnt.PhoneNumber = contacto.PhoneNumber
+			if contacto.Enabled {
+				cnt.Activation()
+			} else {
+				cnt.Deactivation()
+			}
+			cnts = append(cnts, cnt)
+		}
+	}
+	return &cnts
 }
 
 func (d *DirectoryMYSQL) GetAllEnabled() *[]domain.Contact {
-	contacts := []domain.Contact{}
+	query := "SELECT idcontacto,name,phone_number,e_mail,enabled FROM contacto where enabled = 1"
 
-	for _, v := range d.Storage {
-		contact := v.(domain.Contact)
-		contacts = append(contacts, contact)
-
-		/* guion bajo _ no toma el valor
-		Parseo: convertir un objeto a otro objeto con las mismas propiedades,
-		crea una estructura de un nuevo tipo*/
-
-		/* append agrega un dato a un arreglo*/
-
+	rows, err := d.Storage.Query(query)
+	if err != nil {
+		fmt.Println(err.Error())
 	}
-	return &contacts
+	contactos := []domainDB.Contact{} //se ponen llavesitas para instanciar el objeto "{}"
+	for rows.Next() {
+		contacto := new(domainDB.Contact)
+		err = rows.Scan(&contacto.Id, &contacto.Name, &contacto.PhoneNumber, &contacto.EMail, &contacto.Enabled)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		contactos = append(contactos, *contacto)
+	}
+
+	cnts := []domain.Contact{}
+	if len(contactos) > 0 {
+		for _, contacto := range contactos {
+			cnt := domain.Contact{}
+
+			cnt.Name = contacto.Name
+			cnt.EMail = contacto.EMail
+			cnt.PhoneNumber = contacto.PhoneNumber
+			if contacto.Enabled {
+				cnt.Activation()
+			} else {
+				cnt.Deactivation()
+			}
+			cnts = append(cnts, cnt)
+		}
+	}
+
+	return &cnts
 }

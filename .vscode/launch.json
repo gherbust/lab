@@ -9,7 +9,10 @@
             "type": "go",
             "request": "launch",
             "mode": "debug",
-            "program": "./app/main.go"
+            "program": "./app/main.go",
+            "env": {
+                "connectionString" : "root:bebes2023*@tcp(localhost:3306)/directorio" //no conviene que es te la contraseña en un variable de ambiente, sino en un lugar llamdo "secretos"
+            }
         }
 
     ]
