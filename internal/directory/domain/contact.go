@@ -14,3 +14,7 @@ func (c *Contact) Activation() {
 func (c *Contact) Deactivation() {
 	c.isActive = false
 }
+
+func (c *Contact) Status() bool {
+	return c.isActive
+}
