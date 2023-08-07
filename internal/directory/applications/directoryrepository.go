@@ -8,3 +8,5 @@ type DirectoryRepository interface {
 	GetAll() *[]domain.Contact
 	GetAllEnabled() *[]domain.Contact
 }
+
+//delete 1

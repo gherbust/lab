@@ -138,3 +138,5 @@ func (d *DirectoryMYSQL) GetAllEnabled() *[]domain.Contact {
 
 	return &cnts
 }
+
+//delete 2

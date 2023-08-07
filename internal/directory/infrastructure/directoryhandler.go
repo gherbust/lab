@@ -38,3 +38,38 @@ func (d *DirectoryHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusAccepted, nil)
 
 }
+
+func (d *DirectoryHandler) Contact(c *gin.Context) { //html
+	contacts := d.Directory.GetAllEnabled()
+	data := gin.H{
+		"title":    "Directorio",
+		"name":     "Dante HT",
+		"contacts": contacts,
+	}
+	c.HTML(http.StatusOK, "index.html", data)
+}
+
+func (d *DirectoryHandler) ContactDetail(c *gin.Context) {
+	name := c.Query("name")
+	contact := d.Directory.GetContact(name)
+	data := gin.H{
+		"title":   "Contacto",
+		"contact": contact,
+	}
+	c.HTML(http.StatusOK, "contact.html", data)
+}
+
+func (d *DirectoryHandler) ViewContactCreated(c *gin.Context) {
+	c.HTML(http.StatusOK, "new_contact.html", nil)
+}
+
+func (d *DirectoryHandler) ContactCreated(c *gin.Context) { //return de datos
+	contact := domain.Contact{}
+	contact.Name = c.PostForm("name")
+	contact.PhoneNumber = c.PostForm("phone_number")
+	contact.EMail = c.PostForm("e_mail")
+	d.Directory.SaveContact(contact)
+	c.HTML(http.StatusOK, "new_contact.html", nil)
+}
+
+//delete 3

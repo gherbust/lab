@@ -19,10 +19,18 @@ func main() {
 
 	directory := applications.NewDirectoryMYSQL(sqlDB)
 	handler := infrastructure.NewDirectoryHandler(directory)
-	r := gin.Default()                   //esto levanta el servidor web en GO
+	r := gin.Default()                    //esto levanta el servidor web en GO
+	r.LoadHTMLGlob("../templates/*.html") //html
+
 	r.POST("/directory", handler.Create) ///VERBOS en Postman
 	r.GET("/directory/:name", handler.GetByName)
 	r.GET("/directory", handler.GetAll)
+
+	r.GET("/", handler.Contact) //html
+	views := r.Group("/contact")
+	views.GET("/", handler.ContactDetail) //html
+	views.GET("/create", handler.ViewContactCreated)
+	views.POST("/create", handler.ContactCreated)
 
 	//r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
 
