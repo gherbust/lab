@@ -20,9 +20,15 @@ func main() {
 	directory := applications.NewDirectoryMYSQL(sqlDB)
 	handler := infrastructure.NewDirectoryHandler(directory)
 	r := gin.Default()
+	r.LoadHTMLGlob("../templates/*.html")
+
 	r.POST("/directory", handler.Create)
 	r.GET("/directory/:name", handler.GetByName)
 	r.GET("/directory", handler.GetAll)
+
+	r.GET("/", handler.Contact)
+	views := r.Group("/contact")
+	views.POST("/create", nil)
 
 	//r.POST("/stringConverter", stringsfunctionsinfrastructure.StringConverter)
 

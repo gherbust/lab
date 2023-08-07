@@ -38,3 +38,14 @@ func (d *DirectoryHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusAccepted, nil)
 
 }
+
+func (d *DirectoryHandler) Contact(c *gin.Context) {
+	contacts := d.Directory.GetAllEnabled()
+	data := gin.H{
+		"title":    "Directorio",
+		"name":     "Gerardo HB",
+		"contacts": contacts,
+	}
+	c.HTML(http.StatusOK, "index.html", data)
+
+}
