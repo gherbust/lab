@@ -38,3 +38,41 @@ func (d *DirectoryHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusAccepted, nil)
 
 }
+
+func (d *DirectoryHandler) TemplateGetAll(c *gin.Context) {
+	contacts := d.Directory.GetAllEnabled()
+	data := gin.H{
+		"title":    "Directorio",
+		"contacts": contacts,
+	}
+	c.HTML(http.StatusOK, "index.html", data)
+}
+
+func (d *DirectoryHandler) TemplateGetByName(c *gin.Context) {
+	name := c.Query("name")
+	contact := d.Directory.GetContact(name)
+	data := gin.H{
+		"title":   "Contacto " + name,
+		"contact": contact,
+	}
+	c.HTML(http.StatusOK, "contact.html", data)
+}
+
+func (d *DirectoryHandler) TempateContactCreate(c *gin.Context) {
+	data := gin.H{
+		"title": "Nuevo Contacto ",
+	}
+	c.HTML(http.StatusOK, "new_contact.html", data)
+}
+
+func (d *DirectoryHandler) TemplateCreate(c *gin.Context) {
+	request := domain.Contact{}
+	request.Name = c.PostForm("name")
+	request.PhoneNumber = c.PostForm("phone_number")
+	request.EMail = c.PostForm("e_mail")
+	d.Directory.SaveContact(request)
+	data := gin.H{
+		"title": "Nuevo Contacto ",
+	}
+	c.HTML(http.StatusOK, "new_contact.html", data)
+}
