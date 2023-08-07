@@ -28,7 +28,9 @@ func main() {
 
 	r.GET("/", handler.Contact)
 	views := r.Group("/contact")
-	views.POST("/create", nil)
+	views.GET("/", handler.ContactDetail)
+	views.GET("/create", handler.ViewContactCreate)
+	views.POST("/create", handler.ContactCreate)
 
 	//r.POST("/stringConverter", stringsfunctionsinfrastructure.StringConverter)
 

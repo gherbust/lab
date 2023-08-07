@@ -1,5 +1,5 @@
 {{template "header.html"}}
-<div class="content">
+<div class="container">
     <h1>Directorio</h1>
     <p>{{.name}}</p>
     <table class="table table-striped">
@@ -8,7 +8,7 @@
                 <th>Nombre</th>
                 <th>Telefono</th>
                 <th>Correo</th>
-                <th>--</th>
+                <th><input type="button" class="btn btn-success" onclick="location.href='/contact/create';" value="Nuevo"></td></th>
             </tr>
         </thead>
         <tbody>
@@ -17,7 +17,7 @@
                 <td>{{.Name}}</td>
                 <td>{{.PhoneNumber}}</td>
                 <td>{{.EMail}}</td>
-                <td><input type="button" class="btn btn-primary" value="Ver"></td>
+                <td><input type="button" class="btn btn-primary" onclick="location.href='/contact?name={{.Name}}';" value="Ver"></td>
             </tr>
             {{end}}
         </tbody>

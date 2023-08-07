@@ -1,0 +1,13 @@
+{{template "header.html"}}
+<div class="container">
+    <h2>Contacto {{.contact.Name}}</h2>
+    <hr>
+    <p>
+        Correo: {{.contact.EMail}}
+        
+        Telefono: {{.contact.PhoneNumber}}
+    </p>
+    <input type="button" class="btn btn-primary" onclick="location.href='/';" value="Regresar">
+
+</div>
+{{template "footer.html"}}
