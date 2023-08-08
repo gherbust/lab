@@ -139,4 +139,15 @@ func (d *DirectoryMYSQL) GetAllEnabled() *[]domain.Contact {
 	return &cnts
 }
 
-//delete 2
+////---------------------DELETE
+
+func (d *DirectoryMYSQL) DeleteContact(name string) *domain.Contact { //delete 2
+	query := "DELETE idcontacto,name,phone_number,e_mail,enabled FROM directorio.contacto where name = ?"
+
+	_, err := d.Storage.Query(query, name)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	return nil
+}

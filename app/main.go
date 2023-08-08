@@ -31,6 +31,7 @@ func main() {
 	views.GET("/", handler.ContactDetail) //html
 	views.GET("/create", handler.ViewContactCreated)
 	views.POST("/create", handler.ContactCreated)
+	views.DELETE("/delete", handler.ContactDelete)
 
 	//r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
 

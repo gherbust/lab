@@ -72,4 +72,6 @@ func (d *DirectoryHandler) ContactCreated(c *gin.Context) { //return de datos
 	c.HTML(http.StatusOK, "new_contact.html", nil)
 }
 
-//delete 3
+func (d *DirectoryHandler) ContactDelete(c *gin.Context) { //delete 3----------
+
+}

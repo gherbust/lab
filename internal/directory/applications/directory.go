@@ -52,13 +52,16 @@ func (d *Directory) GetAllEnabled() *[]domain.Contact {
 	for _, v := range d.Storage {
 		contact := v.(domain.Contact)
 		contacts = append(contacts, contact)
-
-		/* guion bajo _ no toma el valor
-		Parseo: convertir un objeto a otro objeto con las mismas propiedades,
-		crea una estructura de un nuevo tipo*/
-
-		/* append agrega un dato a un arreglo*/
-
 	}
 	return &contacts
+}
+
+func (d *Directory) DeleteContact(name string) *domain.Contact { //Delete 4(?)
+	contact := d.Storage[name]
+	if contact == nil {
+		return nil
+	}
+
+	c := contact.(domain.Contact)
+	return &c
 }
