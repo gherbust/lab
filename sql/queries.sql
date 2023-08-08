@@ -2,7 +2,7 @@ INSERT INTO `directorio`.`contacto`
 (
 `name`,
 `phone_number`,
-`email`,
+`e_mail`,
 `last_update`,
 `enabled`)
 VALUES
