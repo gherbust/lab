@@ -71,7 +71,22 @@ func (d *DirectoryHandler) ContactCreated(c *gin.Context) { //return de datos
 	d.Directory.SaveContact(contact)
 	c.HTML(http.StatusOK, "new_contact.html", nil)
 }
-
+func (d *DirectoryHandler) ViewContactDelete(c *gin.Context) {
+	name := c.Query("name")
+	data := gin.H{
+		"Name": name,
+	}
+	c.HTML(http.StatusOK, "delete_contact.html", data)
+}
 func (d *DirectoryHandler) ContactDelete(c *gin.Context) { //delete 3----------
+	name := c.PostForm("name")
+	d.Directory.DeleteContact(name)
 
+	contacts := d.Directory.GetAllEnabled()
+	data := gin.H{
+		"title":    "Directorio",
+		"name":     "Dante HT",
+		"contacts": contacts,
+	}
+	c.HTML(http.StatusOK, "index.html", data)
 }

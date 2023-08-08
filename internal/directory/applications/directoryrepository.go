@@ -7,7 +7,7 @@ type DirectoryRepository interface {
 	GetContact(name string) *domain.Contact
 	GetAll() *[]domain.Contact
 	GetAllEnabled() *[]domain.Contact
-	DeleteContact(name string) *domain.Contact //---------------DELETE
+	DeleteContact(name string) //---------------DELETE
 }
 
 //delete 1

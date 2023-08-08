@@ -56,12 +56,6 @@ func (d *Directory) GetAllEnabled() *[]domain.Contact {
 	return &contacts
 }
 
-func (d *Directory) DeleteContact(name string) *domain.Contact { //Delete 4(?)
-	contact := d.Storage[name]
-	if contact == nil {
-		return nil
-	}
+func (d *Directory) DeleteContact(name string) { //Delete 4(?)
 
-	c := contact.(domain.Contact)
-	return &c
 }

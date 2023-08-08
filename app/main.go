@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	conectionString := "root:bebes2023*@tcp(localhost:3306)/directorio"
+	conectionString := "root:Subreg03@tcp(localhost:3306)/directorio"
 	sqlDB, err := mysqlinfraestructure.OpenMysqlDB(conectionString)
 	if err != nil {
 		panic(err)
@@ -31,7 +31,8 @@ func main() {
 	views.GET("/", handler.ContactDetail) //html
 	views.GET("/create", handler.ViewContactCreated)
 	views.POST("/create", handler.ContactCreated)
-	views.DELETE("/delete", handler.ContactDelete)
+	views.GET("/delete", handler.ViewContactDelete)
+	views.POST("/delete", handler.ContactDelete)
 
 	//r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
 
