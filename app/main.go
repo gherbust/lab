@@ -1,23 +1,37 @@
 package main
 
 import (
+	"context"
+	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/gherbust/lab/internal/directory/applications"
 	"github.com/gherbust/lab/internal/directory/infrastructure"
-	mysqlinfraestructure "github.com/gherbust/lab/internal/platform/mysql/infraestructure"
 
+	//mysqlinfraestructure "github.com/gherbust/lab/internal/platform/mysql/infraestructure"
+	mongoinfrastructure "github.com/gherbust/lab/internal/platform/mongo/infrastructure"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	conectionString := "root:Subreg03@tcp(localhost:3306)/directorio"
+
+	url := "mongodb://localhost:27017"
+	mongoClient, err := mongoinfrastructure.OpenMongoDB(url)
+	if err != nil {
+		fmt.Println(err.Error())
+		panic("Error al abrir mongo")
+	}
+
+	defer mongoClient.Disconnect(context.Background())
+
+	/* conectionString := "root:Subreg03@tcp(localhost:3306)/directorio"
 	sqlDB, err := mysqlinfraestructure.OpenMysqlDB(conectionString)
 	if err != nil {
 		panic(err)
-	}
+	} */
 
-	directory := applications.NewDirectoryMYSQL(sqlDB)
+	directory := applications.NewDirectoryMongo(mongoClient)
 	handler := infrastructure.NewDirectoryHandler(directory)
 	r := gin.Default()                    //esto levanta el servidor web en GO
 	r.LoadHTMLGlob("../templates/*.html") //html
@@ -37,6 +51,7 @@ func main() {
 	//r.POST("/stringConverter", stringfuntionsinfraestructure.StringConverter)
 
 	r.Run()
+
 	/*
 		nombres := []string{"Jose", "Ricardo", "Pablo", "Mia", "Lunita", "Gorda", "Bebeshito", "HijoPanzon"}
 		shared.OrdenarNombres(&nombres)
