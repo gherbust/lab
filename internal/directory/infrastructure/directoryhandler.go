@@ -42,7 +42,6 @@ func (d *DirectoryHandler) Create(c *gin.Context) {
 func (d *DirectoryHandler) Contact(c *gin.Context) {
 	contacts := d.Directory.GetAllEnabled()
 	data := gin.H{
-		"title":    "Directorio",
 		"name":     "Gerardo HB",
 		"contacts": contacts,
 	}
@@ -54,7 +53,6 @@ func (d *DirectoryHandler) ContactDetail(c *gin.Context) {
 	name := c.Query("name")
 	contact := d.Directory.GetContact(name)
 	data := gin.H{
-		"title":   "Contact",
 		"contact": contact,
 	}
 
