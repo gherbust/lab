@@ -54,7 +54,7 @@ func (d *DirectoryHandler) ContactDetail(c *gin.Context) {
 	name := c.Query("name")
 	contact := d.Directory.GetContact(name)
 	data := gin.H{
-		"title":   "Contacto",
+		"title":   "Contact",
 		"contact": contact,
 	}
 
