@@ -1,12 +1,10 @@
 package main
 
 import (
-	"context"
-	"fmt"
-
 	"github.com/gherbust/lab/internal/directory/applications"
 	"github.com/gherbust/lab/internal/directory/infrastructure"
-	mongoInfrastructure "github.com/gherbust/lab/platform/mongo/infrastructure"
+
+	//mongoInfrastructure "github.com/gherbust/lab/platform/mongo/infrastructure"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -18,7 +16,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	*/
+
 	url := "mongodb://localhost:27017"
 	mongoClient, err := mongoInfrastructure.OpenMongoDB(url)
 	if err != nil {
@@ -26,8 +24,8 @@ func main() {
 		panic("Error al abrir mongo")
 	}
 	defer mongoClient.Disconnect(context.Background())
-
-	directory := applications.NewDirectoryMongo(mongoClient)
+	*/
+	directory := applications.NewDirectory()
 	handler := infrastructure.NewDirectoryHandler(directory)
 	r := gin.Default()
 	r.LoadHTMLGlob("../templates/*.html")
